@@ -71,7 +71,8 @@ const BestFrom2025 = () => {
             <h3>{selectedMovie.title}</h3>
             <p><strong>Release:</strong> {selectedMovie.release_date}</p>
             <p><strong>Rating:</strong> {selectedMovie.vote_average}</p>
-            <p>{selectedMovie.overview || "No description available."}</p>
+            <p>{selectedMovie?.overview? selectedMovie.overview.length < 50? selectedMovie.overview: selectedMovie.overview.slice(0, 50) + "...": "No description available."}</p>
+
             <a
               href={`https://www.youtube.com/results?search_query=${selectedMovie.title}+trailer`}
               target="_blank"

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './PopularPage.css';
+import Footer from './Footer';
 
 const PopularPage = () => {
   const [movies, setMovies] = useState([]);
@@ -90,6 +91,7 @@ const PopularPage = () => {
           )}
         </div>
       )}
+      <Footer />
     </div>
   );
 };

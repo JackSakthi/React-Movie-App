@@ -4,7 +4,7 @@ import './navbar.css';
 import { FaSearch } from "react-icons/fa";
 import { FaBarsStaggered } from "react-icons/fa6";
 
-const Navbar = ({ user, onLogout }) => {
+const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
@@ -50,20 +50,6 @@ const Navbar = ({ user, onLogout }) => {
             <li onClick={() => navigate("/popular")}>Most Popular</li>
             <li onClick={() => navigate("/categories")}>Categories</li>
           </ul>
-        </div>
-
-        <div className="login" id="togg">
-          {user ? (
-            <div className="lo">
-              <span className="user-email">{user.email}</span>
-              <button className="sign-in" onClick={onLogout}>Logout</button>
-            </div>
-          ) : (
-            <div className="lo">
-              <button className="sign-in" onClick={() => navigate("/login")}>Sign In</button>
-              <button className="sign-up" onClick={() => navigate("/signup")}>Sign Up</button>
-            </div>
-          )}
         </div>
 
         <div className="bar">

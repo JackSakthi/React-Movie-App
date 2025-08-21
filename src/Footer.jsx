@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import "./Footer.css";
 
 const Footer = () => {
+    const navigate = useNavigate();
   return (
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-left">
-          <h2>🎬 Movie App</h2>
+          <h2 onClick={() => navigate("/")}>🎬 Movie App</h2>
           <p>&copy; {new Date().getFullYear()} All rights reserved.</p>
         </div>
 

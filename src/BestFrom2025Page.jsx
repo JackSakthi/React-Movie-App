@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './BestFrom2025Page.css';
+import Footer from './Footer';
 
 const BestFrom2025Page = () => {
   const [movies, setMovies] = useState([]);
@@ -92,6 +93,7 @@ const BestFrom2025Page = () => {
           )}
         </div>
       )}
+      <Footer />
     </div>
   );
 };

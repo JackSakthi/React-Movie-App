@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './TrendingPage.css';
+import Footer from './Footer';
 
 const TrendingPage = () => {
   const [movies, setMovies] = useState([]);
@@ -104,7 +105,9 @@ const TrendingPage = () => {
           Load More
         </button>
       )}
+    <Footer />
     </div>
+    
   );
 };
 

@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./Categories.css";
 
+const API_KEY = "48ccd41a4f0bbf8b9ab6e64d2499fc2a";
+
 const CategoriesPage = () => {
   const [genres, setGenres] = useState([]);
-  const [selectedGenreId, setSelectedGenreId] = useState(null);
+  const [selectedGenre, setSelectedGenre] = useState(null);
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const API_KEY = "48ccd41a4f0bbf8b9ab6e64d2499fc2a";
-
+  // ✅ Fetch genres on mount
   useEffect(() => {
     const fetchGenres = async () => {
       try {
@@ -20,7 +21,7 @@ const CategoriesPage = () => {
         const data = await res.json();
         setGenres(data.genres || []);
       } catch (err) {
-        setError("Failed to fetch genres.");
+        setError("⚠️ Failed to fetch genres.");
         console.error(err);
       }
     };
@@ -28,85 +29,90 @@ const CategoriesPage = () => {
     fetchGenres();
   }, []);
 
-  const fetchMovies = async (genreId) => {
+  // ✅ Fetch movies by genre
+  const fetchMovies = async (genre) => {
     setLoading(true);
     setError("");
-    setSelectedGenreId(genreId);
+    setSelectedGenre(genre);
     try {
       const res = await fetch(
-        `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${genreId}&sort_by=popularity.desc`
+        `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${genre.id}&sort_by=popularity.desc`
       );
       const data = await res.json();
       setMovies(data.results || []);
     } catch (err) {
-      setError("Failed to fetch movies.");
+      setError("⚠️ Failed to fetch movies.");
       console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleMovieClick = (movie) => {
-    setSelectedMovie(movie);
-  };
-
-  const closeModal = () => {
-    setSelectedMovie(null);
-  };
-
   return (
     <div className="categories-page">
-      <aside className="sidebar">
-        <h3>🎭 Genres</h3>
-        {genres.length === 0 && <p>Loading genres...</p>}
-        {genres.map((genre) => (
-          <button
-            key={genre.id}
-            className={`genre-btn ${selectedGenreId === genre.id ? "active" : ""}`}
-            onClick={() => fetchMovies(genre.id)}
-          >
-            {genre.name}
-          </button>
-        ))}
-      </aside>
+      {/* ✅ Flex container for sidebar + movies */}
+      <div className="layout-container">
+        {/* Sidebar */}
+        <aside className="sidebar">
+          <h3>🎭 Genres</h3>
+          {genres.length === 0 && <p>Loading genres...</p>}
+          {genres.map((genre) => (
+            <button
+              key={genre.id}
+              className={`genre-btn ${selectedGenre?.id === genre.id ? "active" : ""}`}
+              onClick={() => fetchMovies(genre)}
+            >
+              {genre.name}
+            </button>
+          ))}
+        </aside>
 
-      <main className="movies-content">
-        <h2>
-          {selectedGenreId
-            ? `🎬 Movies in "${genres.find((g) => g.id === selectedGenreId)?.name}"`
-            : "📂 Select a Genre"}
-        </h2>
+        {/* Movies Content */}
+        <main className="movies-content">
+          <h2>
+            {selectedGenre
+              ? `🎬 Movies in "${selectedGenre.name}"`
+              : "📂 Select a Genre"}
+          </h2>
 
-        {error && <p className="error">{error}</p>}
+          {error && <p className="error">{error}</p>}
 
-        {loading ? (
-          <p className="loading">Loading movies...</p>
-        ) : movies.length === 0 && selectedGenreId ? (
-          <p className="no-results">No movies found for this genre.</p>
-        ) : (
-          <div className="movie-grid">
-            {movies.map((movie) => (
-              <div key={movie.id} className="movie-card" onClick={() => handleMovieClick(movie)}>
-                <img
-                  src={
-                    movie.poster_path
-                      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                      : "/no-image.jpg"
-                  }
-                  alt={movie.title}
-                />
-                <h4>{movie.title}</h4>
-                <p>{movie.release_date?.slice(0, 4)}</p>
-              </div>
-            ))}
-          </div>
-        )}
-      </main>
+          {loading ? (
+            <p className="loading">⏳ Loading movies...</p>
+          ) : movies.length === 0 && selectedGenre ? (
+            <p className="no-results">No movies found for this genre.</p>
+          ) : (
+            <div className="movie-grid">
+              {movies.map((movie) => (
+                <div
+                  key={movie.id}
+                  className="movie-card"
+                  onClick={() => setSelectedMovie(movie)}
+                >
+                  <img
+                    src={
+                      movie.poster_path
+                        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                        : "/no-image.jpg"
+                    }
+                    alt={movie.title}
+                  />
+                  <h4>{movie.title}</h4>
+                  <p>{movie.release_date?.slice(0, 4)}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </main>
+      </div>
 
+      {/* Movie Modal */}
       {selectedMovie && (
         <div className="movie-modal">
           <div className="modal-content">
-            <button className="close-btn" onClick={closeModal}>&times;</button>
+            <button className="close-btn" onClick={() => setSelectedMovie(null)}>
+              &times;
+            </button>
             <img
               src={
                 selectedMovie.poster_path
@@ -116,7 +122,10 @@ const CategoriesPage = () => {
               alt={selectedMovie.title}
             />
             <h3>{selectedMovie.title}</h3>
-            <p><strong>Release Year:</strong> {selectedMovie.release_date?.slice(0, 4)}</p>
+            <p>
+              <strong>Release Year:</strong>{" "}
+              {selectedMovie.release_date?.slice(0, 4)}
+            </p>
             <p className="desc">
               {selectedMovie.overview?.split(" ").slice(0, 50).join(" ")}...
             </p>

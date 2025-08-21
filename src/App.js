@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
 import SearchResults from './SearchResults';
@@ -10,8 +10,6 @@ import TrendingSlider from './TrendingSlider';
 import BestFrom2025Slider from './BestFrom2025';
 import MostPopular from './MostPopular';
 import Categories from './Categories';
-import Login from './Login';
-import SignUp from './SignUp';
 
 // ✅ New Pages
 import TrendingPage from './TrendingPage';
@@ -20,56 +18,23 @@ import PopularPage from './PopularPage';
 import CategoriesPage from './CategoriesPage';
 
 function App() {
-  const [user, setUser] = useState(null);
-  const location = useLocation();
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem('movieAppUser');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
-
-  const handleLogin = (userData) => {
-    localStorage.setItem('movieAppUser', JSON.stringify(userData));
-    setUser(userData);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('movieAppUser');
-    setUser(null);
-  };
-
-  const hideNavbar = location.pathname === '/login' || location.pathname === '/signup';
-
   return (
     <>
-      {!hideNavbar && <Navbar user={user} onLogout={handleLogout} />}
+      <Navbar />
 
       <Routes>
         <Route
           path="/"
           element={
-            user ? (
-              <>
-                <Home />
-                <TrendingSlider />
-                <BestFrom2025Slider />
-                <MostPopular />
-                <Categories />
-                <Footer />
-              </>
-            ) : (
-              <Navigate to="/login" replace />
-            )
+            <>
+              <Home />
+              <TrendingSlider />
+              <BestFrom2025Slider />
+              <MostPopular />
+              <Categories />
+              <Footer />
+            </>
           }
-        />
-        <Route
-          path="/login"
-          element={user ? <Navigate to="/" replace /> : <Login onLogin={handleLogin} />}
-        />
-        <Route path="/signup"
-          element={user ? <Navigate to="/" replace /> : <SignUp />}
         />
         <Route path="/search" element={<SearchResults />} />
 

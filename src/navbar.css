@@ -144,7 +144,7 @@ header li:hover{
     .menu{
         width: 50%;
         border-radius: 0px;
-        padding-bottom: 60px;
+        /* padding-bottom: 60px; */
         right: -1000px;
         transition: right 1s ease ;
         
@@ -185,8 +185,7 @@ header li:hover{
         border-radius: 0;
     }
     .menu.open{
-        width: 100%;
-        
+        width: 100%; 
     }
     .login{
       width: 100%;

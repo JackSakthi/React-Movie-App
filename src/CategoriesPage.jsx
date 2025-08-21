@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './CategoriesPage.css';
+import Footer from './Footer';
 
 const genreMap = {
   Action: 28,
@@ -146,6 +147,7 @@ const CategoriesPage = () => {
           )}
         </div>
       )}
+      <Footer />
     </div>
   );
 };
