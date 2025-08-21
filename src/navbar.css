@@ -1,0 +1,195 @@
+header{
+    padding: 10px;
+}
+header h1{
+    cursor: pointer;
+}
+header nav{
+    background-color: rgb(14, 14, 14);
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 12px 0;
+    border-radius: 8px;
+    position: relative;
+}
+header ul{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap:18px;
+}
+header li{
+    list-style-type: none;
+    font-size: .8rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+header li:hover{
+    font-weight: 700;
+}
+.search{
+    background-color: rgba(85, 83, 83, 0.719);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px ;
+    border-radius: 7px;
+    gap: 8px;
+}
+.search input{
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: white;
+}
+.search button{
+    background-color: transparent;
+    height: 100%;
+    border: none;
+    outline: none;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login button{
+    background-color: rgb(209, 181, 170);
+    border: none;
+    outline: none;
+    padding: 6px 19px;
+    border-radius: 7px;
+    margin-left: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color .4s ease;
+    transition: color .1s ease;
+
+}
+.login .sign-in{
+    background-color: transparent;
+    color: white;
+}
+.login .sign-in:hover{
+    background-color: rgb(209, 181, 170);
+    color: black;
+}
+.login .sign-in:hover ~ .sign-up{
+    background-color: transparent;
+    color: white;
+}
+.bar span{
+    font-size: 18px;
+}
+.bar{
+    display: none;
+}
+
+.search{
+        width: 25%;
+}
+.user-email {
+  color: white;
+  margin-right: 10px;
+  font-size: 14px;
+}
+.lo{
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* media queries */
+
+/* width : 1200px */
+/* width : 992px */
+@media(max-width:992px){
+    .bar{
+        display: block;
+    }
+    .menu{
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: rgba(55, 54, 54, 0.903);
+        border-radius: 10px;
+        box-shadow: 0 0 4px rgb(35, 35, 35);
+        right: -100000px;
+        z-index: 100000000000;
+    }
+    .menu.open{
+        right: 0;
+        display: block;
+    }
+    .menu ul{
+        flex-direction: column;
+    }
+    .menu ul li{
+        padding: 10px 30px;
+
+    }
+    .search{
+        width: 40%;
+    }
+
+}
+
+/* width : 768px */
+@media(max-width:768px){
+    .menu{
+        width: 50%;
+        border-radius: 0px;
+        padding-bottom: 60px;
+        right: -1000px;
+        transition: right 1s ease ;
+        
+
+    }
+    .menu.open{
+        right: 0;
+    
+
+    }
+    .login{
+        position: absolute;
+        top:275px;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        /* background-color: black; */
+        padding: 10px;
+        width: 50%;
+        display: none;
+        right: -1000px;
+        transition: right 1s ease;
+        z-index: 100000000000;
+
+    }
+    .login.open{
+        right: 0;
+        display: flex;
+    }
+
+}
+/* width : 480px */
+@media(max-width:480px){
+    header{
+        padding: 0;
+    }
+    header nav{
+        border-radius: 0;
+    }
+    .menu.open{
+        width: 100%;
+        
+    }
+    .login{
+      width: 100%;
+    }
+
+}

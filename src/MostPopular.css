@@ -1,0 +1,83 @@
+/* Main section container */
+.most-popular-section {
+  max-width: 80%;
+  margin: 80px auto;        /* Top and bottom spacing + centered */
+  padding: 20px;
+  background: #000000;
+  color: white;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Section heading */
+.most-popular-section h2 {
+  font-size: 28px;
+  margin-bottom: 50px;
+  color: #ff4d4d;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* Movie rows (each block of poster + text) */
+.popular-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 60px;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+/* Alternate zig-zag layout */
+.popular-row.reverse {
+  flex-direction: row-reverse;
+}
+
+/* Poster image */
+.popular-row img {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 77, 77, 0.4);
+  flex-shrink: 0;
+}
+
+/* Text container */
+.movie-info {
+  flex: 1;
+  min-width: 250px;
+  text-align: left;
+}
+
+/* Movie title */
+.movie-info h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #ff4d4d;
+}
+
+/* Description paragraph */
+.movie-info p {
+  font-size: 15px;
+  color: #ccc;
+  line-height: 1.6;
+}
+
+/* Responsive styles for mobile */
+@media (max-width: 768px) {
+  .popular-row {
+    flex-direction: column !important;
+    text-align: center;
+  }
+
+  .popular-row img {
+    width: 100%;
+    height: auto;
+  }
+
+  .movie-info {
+    padding-top: 20px;
+    text-align: center;
+  }
+}
